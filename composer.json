@@ -1,0 +1,36 @@
+{
+  "name": "tasker/tasker-copy-files",
+  "type": "library",
+  "description": "Task which will be copy your files for task manager Tasker",
+  "keywords": ["task", "tasker", "taks runner", "files", "copy files"],
+  "homepage": "https://github.com/tasker-org/Tasker-Copy-Files",
+  "license": "MIT",
+
+  "authors": [
+    {
+      "name": "Jiří Šifalda",
+      "homepage": "http://jsifalda.name/"
+    }
+  ],
+
+  "support": {
+    "email": "sifalda.jiri@gmail.com",
+    "issues": "https://github.com/tasker-org/Tasker-Copy-Files/issues"
+  },
+
+  "require": {
+    "php": ">=5.3.2",
+    "tasker/tasker": ">=1.0",
+    "tasker/utils": ">=1.0"
+  },
+
+  "config": {
+    "vendor-dir": "libs"
+  },
+
+  "autoload": {
+    "psr-0": {
+      "Tasker": ""
+    }
+  }
+}
