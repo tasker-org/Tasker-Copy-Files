@@ -8,31 +8,18 @@
 namespace Tasker\Copy;
 
 use Tasker\ErrorException;
-use Tasker\Setters\IRootPathSetter;
+use Tasker\Tasks\Task;
 use Tasker\Utils\FileSystem;
-use Tasker\Tasks\ITaskService;
 
-class CopyFilesTask implements ITaskService, IRootPathSetter
+class CopyFilesTask extends Task
 {
-
-	private $root;
-
-	/**
-	 * @param string $root
-	 * @return $this
-	 */
-	public function setRootPath($root)
-	{
-		$this->root = (string) $root;
-		return $this;
-	}
 
 	/**
 	 * @param array $config
 	 * @return array
 	 * @throws \Tasker\ErrorException
 	 */
-	public function run(array $config)
+	public function run($config)
 	{
 		$results = array();
 		if(count($config)) {
@@ -63,6 +50,6 @@ class CopyFilesTask implements ITaskService, IRootPathSetter
 	 */
 	protected function getFullPath($path)
 	{
-		return $this->root . DIRECTORY_SEPARATOR . $path;
+		return $this->setting->getRootPath() . DIRECTORY_SEPARATOR . $path;
 	}
 }
