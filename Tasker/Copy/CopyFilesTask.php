@@ -23,6 +23,7 @@ class CopyFilesTask extends Task
 	{
 		$results = array();
 		if(count($config)) {
+
 			foreach ($config as $dest => $sources) {
 				if(!is_string($dest)) {
 					throw new ErrorException('Destination must be valid path');
@@ -33,9 +34,26 @@ class CopyFilesTask extends Task
 				}
 
 				if(count($sources)) {
+					$dest = $this->getFullPath($dest);
+
 					foreach ($sources as $source) {
-						FileSystem::cp($this->getFullPath($dest), $this->getFullPath($source));
-						$results[] = 'Files from folder "' . $source . '" was copied to "' . $dest . '"';
+						$source = $this->getFullPath($source);
+
+						if(!file_exists($source)) {
+							$results[] = 'File ' . $source . ' cannot be copied. File does not exist.';
+						}else{
+
+							if(!is_dir($source)) {
+								$fileName = explode(DIRECTORY_SEPARATOR, $source);
+								$fileName = $fileName[count($fileName) - 1];
+								$dest .= DIRECTORY_SEPARATOR . $fileName;;
+								FileSystem::write($dest, FileSystem::read($source));
+							}else{
+								FileSystem::cp($source, $dest);
+							}
+
+							$results[] = 'Files from folder "' . $source . '" was copied to "' . $dest . '"';
+						}
 					}
 				}
 			}
